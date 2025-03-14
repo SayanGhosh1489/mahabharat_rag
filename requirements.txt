@@ -1,0 +1,10 @@
+langchain
+langchain_community
+pypdf
+sentence_transformers
+transformers
+torch
+langchain_google_genai
+faiss-cpu
+streamlit
+-e .
