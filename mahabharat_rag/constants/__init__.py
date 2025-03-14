@@ -12,8 +12,10 @@ EMBEDDING_MODEL = 'sentence-transformers/all-MiniLM-L6-v2'
 CHUNK_SIZE = 1000
 CHUNK_OVERLAP = 100
 
+#embedding
+SEARCH_TERM = "similarity"
+SEARCH_KWARG = {"k": 6}
+ALLOW_DANGEROUS_DESERIALIZATION = True
 
 # Paths for storing artifacts
 ARTIFACT_PATH = "artifact"
-EMBEDDING_OUTPUT = os.path.join(ARTIFACT_PATH, f"embeddingOutput_{TIMESTAMP}")
-MODEL_OUTPUT = os.path.join(ARTIFACT_PATH, f"modelOutput_{TIMESTAMP}")

@@ -20,4 +20,8 @@ class embeddingConfig:
     """
     def __init__(self):
         self.embedding_model: str = EMBEDDING_MODEL
-        self.embedding_output: str = EMBEDDING_OUTPUT
+        self.embedding_dir: str = os.path.join(ARTIFACT_PATH,TIMESTAMP)
+        self.embedding_output: str =os.path.join(self.embedding_dir, f"embedding")
+        self.search_term: str = SEARCH_TERM
+        self.allow_dangerous_deserialization: bool = ALLOW_DANGEROUS_DESERIALIZATION
+        self.search_kwargs: dict = SEARCH_KWARG

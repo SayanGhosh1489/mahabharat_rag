@@ -1,4 +1,4 @@
-from langchain.document_loaders import DirectoryLoader,PyPDFLoader
+from langchain_community.document_loaders import DirectoryLoader,PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from mahabharat_rag.entity.config import dataLoaderConfig
 from mahabharat_rag.entity.artifact import dataloaderArtifacts
