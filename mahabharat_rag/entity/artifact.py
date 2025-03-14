@@ -1,12 +1,14 @@
 import os
 from dataclasses import dataclass
+from typing import List
+from langchain.schema import Document
 
-
+@dataclass  
 class dataloaderArtifacts:
     """
     Data loader class save the splited data
     """
-    data_list: list
+    data_list: List[Document]
 
 @dataclass
 class embeddingloaderArtifacts:

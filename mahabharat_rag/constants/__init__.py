@@ -2,7 +2,7 @@ from datetime  import datetime
 import os
 
 #dataloader
-RAW_DATA_PATH = "data"
+RAW_DATA_PATH = r"mahabharat_rag\data"
 GLOBE = '*.pdf'
 
 TIMESTAMP = datetime.now().strftime('%Y%m%d%H%M%S')

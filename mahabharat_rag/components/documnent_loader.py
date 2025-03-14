@@ -3,6 +3,9 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from mahabharat_rag.entity.config import dataLoaderConfig
 from mahabharat_rag.entity.artifact import dataloaderArtifacts
 from mahabharat_rag.logger import logging
+from mahabharat_rag.exception import MahabharatXception
+import sys
+import os
 
 class DocumentLoder:
     def __init__(self,data_loader_config:dataLoaderConfig):
@@ -16,12 +19,21 @@ class DocumentLoder:
 
     def initiate_document_loader(self) -> dataloaderArtifacts:
         logging.info("Initiating document loader")
-        doc = self.data_loader.load()
-        data_loader_artifact: dataloaderArtifacts = dataloaderArtifacts(
-            self.text_splitter.split_documents(doc)
-        )
 
-        return data_loader_artifact
+        try: 
+            doc = self.data_loader.load()
+            data_loader_artifact: dataloaderArtifacts = dataloaderArtifacts(
+                data_list = self.text_splitter.split_documents(doc)
+            )
+            logging.info(
+                "Exited the initiate_data_ingestion method of Data ingestion class"
+            )
+
+            return data_loader_artifact
+        except Exception as e:
+            MahabharatXception(e,sys)
+
+        
 
 
 
