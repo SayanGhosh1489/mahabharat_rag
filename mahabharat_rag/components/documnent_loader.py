@@ -8,7 +8,7 @@ import sys
 import os
 
 class DocumentLoder:
-    def __init__(self,data_loader_config:dataLoaderConfig):
+    def __init__(self,data_loader_config:dataLoaderConfig)->dataloaderArtifacts:
         self.data_loader_config = data_loader_config
         self.data_loader = DirectoryLoader(self.data_loader_config.data_file_path,
                                            glob=data_loader_config.glob,

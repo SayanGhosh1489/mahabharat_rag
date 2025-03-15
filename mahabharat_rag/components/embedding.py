@@ -1,55 +1,80 @@
-import sys, os
+import sys
+import os
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from mahabharat_rag.entity.config import embeddingConfig
-from mahabharat_rag.entity.artifact import (dataloaderArtifacts,
-                                            embeddingloaderArtifacts)
+from mahabharat_rag.entity.artifact import dataloaderArtifacts, embeddingloaderArtifacts
 from mahabharat_rag.logger import logging
 from mahabharat_rag.exception import MahabharatXception
 
+
 class Embedding:
-    def __init__(self,
-                 data_loader_artifact:dataloaderArtifacts,
-                 embedding_config:embeddingConfig):
+    def __init__(self, data_loader_artifact: dataloaderArtifacts, embedding_config: embeddingConfig):
+        """
+        Initialize the Embedding class with data artifacts and embedding configuration.
+
+        Args:
+            data_loader_artifact (dataloaderArtifacts): The data artifacts containing document list.
+            embedding_config (embeddingConfig): The embedding configuration.
+        """
         self.data_loader_artifact = data_loader_artifact
         self.embedding_config = embedding_config
-        self.embedding = HuggingFaceEmbeddings(
+        self.vector_store = None  # Placeholder for the FAISS vector store
+
+    def get_embedding(self):
+        """
+        Returns the HuggingFace Embeddings object.
+        
+        Returns:
+            HuggingFaceEmbeddings: The HuggingFace Embeddings object.
+        """
+        logging.info("Initializing HuggingFace Embeddings...")
+
+        try:
+            embedding = HuggingFaceEmbeddings(
                 model_name=self.embedding_config.embedding_model
             )
-        
-        self.vector_store = None
 
-    
+            return embedding
+        
+        except Exception as e:
+            raise MahabharatXception(e, sys)
+
     def initiate_faiss_embedding(self) -> embeddingloaderArtifacts:
-        logging.info("Initiating initiate_faiss_embedding module of Embedding class")
+        """
+        Creates a FAISS vector store from documents and saves it.
+
+        Returns:
+            embeddingloaderArtifacts: Artifact containing the path to the stored FAISS index.
+        """
+        logging.info("Initiating FAISS embedding process...")
+        
+        embedding = self.get_embedding()
+
         try:
-            os.makedirs(self.embedding_config.embedding_dir, exist_ok=True)
+            # Ensure the artifact directory exists
+            os.makedirs(self.embedding_config.embedding_output, exist_ok=True)
+
+            logging.info(f"Creating FAISS vector store at: {self.embedding_config.embedding_output}")
+
+            # Create FAISS index
             self.vector_store = FAISS.from_documents(
                 self.data_loader_artifact.data_list,
-                self.embedding,
+                embedding,
             )
+
+            # Save FAISS index
             self.vector_store.save_local(self.embedding_config.embedding_output)
-            embedding_artifact: embeddingloaderArtifacts = embeddingloaderArtifacts(
+
+            embedding_artifact = embeddingloaderArtifacts(
                 embedding_file_path=self.embedding_config.embedding_output
             )
 
-            logging.info(
-                "Exited the initiate_faiss_embedding method of Embedding class"
-            )
+            logging.info("Successfully created and stored FAISS embeddings.")
             return embedding_artifact
-        except Exception as e:
-            MahabharatXception(e,sys)
 
-    def get_retriver(self,embedding_artifact:embeddingloaderArtifacts):
-        logging.info("Initiating get_retriver module of Embedding class")
-        try:
-            self.vector_store = FAISS.load_local(embedding_artifact.embedding_file_path,
-                                                 embeddings=self.embedding,
-                                                 allow_dangerous_deserialization=self.embedding_config.allow_dangerous_deserialization
-                                                 )
-            return self.vector_store.as_retriever(
-                search_type= self.embedding_config.search_term, 
-                search_kwargs=self.embedding_config.search_kwargs
-            )
         except Exception as e:
-            MahabharatXception(e,sys)
+            logging.error(f"Error in initiate_faiss_embedding: {str(e)}", exc_info=True)
+            raise MahabharatXception(e, sys)
+
+    

@@ -20,8 +20,17 @@ class embeddingConfig:
     """
     def __init__(self):
         self.embedding_model: str = EMBEDDING_MODEL
-        self.embedding_dir: str = os.path.join(ARTIFACT_PATH,TIMESTAMP)
-        self.embedding_output: str =os.path.join(self.embedding_dir, f"embedding")
+        self.embedding_dir: str = os.path.join(ARTIFACT_PATH,f"embedding")
+        self.embedding_output: str =os.path.join(self.embedding_dir, TIMESTAMP)
+
+
+@dataclass
+class retrieverConfig:
+    """
+    Retriever config class to retrive the data
+    """
+    def __init__(self):
+        self.embedding_dir: str = os.path.join(ARTIFACT_PATH, f"embedding")
         self.search_term: str = SEARCH_TERM
         self.allow_dangerous_deserialization: bool = ALLOW_DANGEROUS_DESERIALIZATION
         self.search_kwargs: dict = SEARCH_KWARG
