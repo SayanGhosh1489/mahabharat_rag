@@ -12,6 +12,7 @@ list_of_files = [
     "mahabharat_rag/components/embedding.py",
     "mahabharat_rag/components/database_creator.py",
     "mahabharat_rag/components/prompt.py",
+    "mahabharat_rag/components/model.py",
     "mahabharat_rag/components/generator.py",
     "mahabharat_rag/entity/__init__.py",
     "mahabharat_rag/entity/config.py",

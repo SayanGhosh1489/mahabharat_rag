@@ -1,4 +1,5 @@
 langchain
+ipykernel
 langchain_community
 pypdf
 sentence_transformers

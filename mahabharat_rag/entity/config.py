@@ -1,5 +1,5 @@
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from mahabharat_rag.constants import *
 
 @dataclass
@@ -41,3 +41,36 @@ class retrieverConfig:
         self.search_term: str = SEARCH_TERM
         self.allow_dangerous_deserialization: bool = ALLOW_DANGEROUS_DESERIALIZATION
         self.search_kwargs: dict = SEARCH_KWARG
+
+@dataclass
+class promptConfig:
+    """
+    provide the prompt template to prompt creator
+    """
+    def __init__(self):
+        self.prompt_template = PROMPT_TEMPLATE
+
+@dataclass
+class modelConfig:
+    """
+    Provide model configuration to the model.
+    """
+    model_name: str = MODEL_NAME
+    model_kwarg: dict = field(default_factory=lambda: {"temperature": TEMPERATURE})
+    key: str = KEY
+
+    def update_kwargs(self, **kwargs):
+        """
+        Update model_kwarg dynamically.
+        """
+        self.model_kwarg.update(kwargs)
+
+@dataclass
+class RetrievalQAConfig:
+    """
+    Provide the confing to RetrievalQA
+    """
+    def __init__(self):
+        self.chian_type = CHAIN_TYPE
+        self.return_source_document = RETURN_SOURCE_DOCUMENT
+        self.verbose = VERBOSE
