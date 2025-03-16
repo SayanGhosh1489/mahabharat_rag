@@ -23,7 +23,7 @@ def start_generator_pipeline():
         logging.info("Exited the Loader pipeline")
         return qa
     except Exception as e:
-        raise MahabharatXception(e, sys)  # Fixed missing 'raise'
+        raise MahabharatXception(e, sys)
 
 if __name__ == "__main__":
     qa_artifact = start_generator_pipeline()
