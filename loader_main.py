@@ -1,14 +1,14 @@
 import sys
-from mahabharat_rag.pipeline.pipeline import pipeLine
+from mahabharat_rag.pipeline.loader_pipeline import LoaderpipeLine
 from mahabharat_rag.logger import logging
 from mahabharat_rag.exception import MahabharatXception
 
 def start_pipeline():
-    logging.info("Starting the pipeline")
+    logging.info("Starting the Loader pipeline")
     try:
-        pipeline = pipeLine()
+        pipeline = LoaderpipeLine()
         pipeline.run_pipeline()
-        logging.info("Exited the pipeline")
+        logging.info("Exited the Loader pipeline")
     except Exception as e:
         MahabharatXception(e,sys)
 

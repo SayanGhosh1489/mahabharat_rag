@@ -2,6 +2,8 @@ import os
 from dataclasses import dataclass
 from typing import List
 from langchain.schema import Document
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.vectorstores import FAISS
 
 @dataclass  
 class dataloaderArtifacts:
@@ -11,8 +13,23 @@ class dataloaderArtifacts:
     data_list: List[Document]
 
 @dataclass
-class embeddingloaderArtifacts:
+class embeddingArtifact:
+    """
+    Data loader class accept HuggingFace embedding
+    """
+    embed_model: HuggingFaceEmbeddings
+
+
+@dataclass
+class databaseCreatorArtifacts:
     """
     Embedding loader class to load embeddings from a given path
     """
-    embedding_file_path: str
+    database_file_path: str
+
+@dataclass
+class RetriverArtifact:
+    """
+    Embedding loader class to load embeddings from a given path
+    """
+    retriver: FAISS

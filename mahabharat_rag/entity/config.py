@@ -20,8 +20,15 @@ class embeddingConfig:
     """
     def __init__(self):
         self.embedding_model: str = EMBEDDING_MODEL
-        self.embedding_dir: str = os.path.join(ARTIFACT_PATH,f"embedding")
-        self.embedding_output: str =os.path.join(self.embedding_dir, TIMESTAMP)
+
+@dataclass
+class databaseCreatorConfig:
+    """
+    database Creator config class to prepare the embedding
+    """
+    def __init__(self):
+        self.database_dir: str = os.path.join(ARTIFACT_PATH,DATABASE_FOLDER_NAME)
+        self.database_output: str =os.path.join(self.database_dir, TIMESTAMP)
 
 
 @dataclass
@@ -30,7 +37,7 @@ class retrieverConfig:
     Retriever config class to retrive the data
     """
     def __init__(self):
-        self.embedding_dir: str = os.path.join(ARTIFACT_PATH, f"embedding")
+        self.database_dir: str = os.path.join(ARTIFACT_PATH, DATABASE_FOLDER_NAME)
         self.search_term: str = SEARCH_TERM
         self.allow_dangerous_deserialization: bool = ALLOW_DANGEROUS_DESERIALIZATION
         self.search_kwargs: dict = SEARCH_KWARG

@@ -4,6 +4,7 @@ import os
 #commmon
 TIMESTAMP = datetime.now().strftime('%Y%m%d%H%M%S')
 ARTIFACT_PATH = "artifact"
+DATABASE_FOLDER_NAME = "DataBase"
 
 #dataloader and spliter
 RAW_DATA_PATH = r"mahabharat_rag\data"
