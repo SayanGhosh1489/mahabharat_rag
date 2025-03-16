@@ -5,10 +5,15 @@ from mahabharat_rag.entity.config import embeddingConfig
 from mahabharat_rag.logger import logging
 from mahabharat_rag.exception import MahabharatXception
 
+#below will be at the start of streatlit app to reduce runtime delay
+###########################################
 embedding_config = embeddingConfig()
 
 embedding = Embedding(embedding_config=embedding_config)
 embedding_artifact = embedding.initiate_get_embedding()
+############################################
+
+# Pipeline will run eachtim retrivalQA is requested.
 
 def start_generator_pipeline():
     logging.info("Starting the start_generator_pipeline pipeline")
