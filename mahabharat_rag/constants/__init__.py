@@ -25,14 +25,15 @@ ALLOW_DANGEROUS_DESERIALIZATION = True
 PROMPT_TEMPLATE = """
 You are an expert in Mahabharat, the ancient Indian epic. 
 Answer the user's question using the provided context. 
-If the context does not contain relevant information, respond with "The provided context does not contain an answer.
+If the context does not contain relevant information, respond with "The provided context does not contain an answer."
+Also try to get the answer from you database
 Context:{context}
 Question:{question}
 Answer:
 """
 
 #model
-MODEL_NAME = "gemini-1.5-flash"
+MODEL_NAME = "gemini-2.0-flash"
 TEMPERATURE = 0.4
 KEY = "GEMINI_API_KEY"
 

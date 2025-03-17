@@ -46,6 +46,7 @@ class Generator:
                 retriever = self.retrival_artifact.retriver,
                 chain_type=self.retrieval_config.chian_type,
                 verbose = self.retrieval_config.verbose,
+                return_source_documents = self.retrieval_config.return_source_document,
                 chain_type_kwargs={"prompt": self.prompt_artifact.prompt})
             
             logging.info("Starting initiate retrievalqa method from Generator class")
